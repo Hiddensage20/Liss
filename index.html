@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liss Trading Community - Inicio</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de la fuente Inter y colores base de Tailwind -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a; /* Fondo negro profundo */
+            color: #e5e7eb; /* Texto claro por defecto */
+        }
+        /* Clase para ocultar secciones, usada por el JS para la navegación */
+        .page-content {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar y Menú Desplegable -->
+    <header class="bg-gray-900 shadow-xl sticky top-0 z-50 border-b border-indigo-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo o Nombre de la Comunidad -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-white text-2xl font-bold tracking-wider hover:text-yellow-500 transition duration-150" onclick="showPage('home')">
+                        Liss Trading
+                    </a>
+                </div>
+
+                <!-- Botón de Menú para móvil y escritorio -->
+                <div class="flex md:hidden">
+                    <button id="menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-yellow-500" aria-expanded="false">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Opciones de Navegación (Escritorio) -->
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4 text-white">
+                        <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('home')">Menú</a>
+                        <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('classes')">Clases Pregrabadas</a>
+                        <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('soon')">Pronto</a>
+                        <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('about')">Acerca de Nosotros</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-white">
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-700 transition duration-150" onclick="closeMenuAndShowPage('home')">Menú</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-700 transition duration-150" onclick="closeMenuAndShowPage('classes')">Clases Pregrabadas</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-700 transition duration-150" onclick="closeMenuAndShowPage('soon')">Pronto</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-700 transition duration-150" onclick="closeMenuAndShowPage('about')">Acerca de Nosotros</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow max-w-7xl mx-auto py-8 sm:px-6 lg:px-8 w-full">
+
+        <!-- 1. Sección de Presentación (Menú/Home) -->
+        <section id="home" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl transition duration-500 border-t-4 border-indigo-600">
+            <h1 class="text-5xl font-extrabold text-yellow-500 mb-4">¡Bienvenido a la Comunidad Liss Trading!</h1>
+            <p class="text-xl text-gray-300 mb-6">Tu camino hacia el trading consciente y rentable comienza aquí. Hemos preparado este espacio para que puedas empezar a tu propio ritmo.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="p-6 bg-gray-700 rounded-lg shadow-inner border border-indigo-500">
+                    <h2 class="text-2xl font-semibold text-indigo-400 mb-2">Empieza Hoy</h2>
+                    <p class="text-gray-300">Accede a las **Clases Pregrabadas** para ver el contenido de inducción fundamental que te ayudará a entender la metodología de la comunidad.</p>
+                </div>
+                <div class="p-6 bg-gray-700 rounded-lg shadow-inner border border-indigo-500">
+                    <h2 class="text-2xl font-semibold text-indigo-400 mb-2">Nuestra Misión</h2>
+                    <p class="text-gray-300">Proveer el mejor contenido educativo de trading, eliminando el ruido y enfocándonos en estrategias probadas. Crece con nosotros.</p>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <button onclick="showPage('classes')" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-xl">
+                    Acceder a Clases
+                </button>
+            </div>
+        </section>
+
+        <!-- 2. Sección de Clases Pregrabadas (Protegida) -->
+        <section id="classes" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-indigo-600">
+            <h1 class="text-4xl font-extrabold text-yellow-500 mb-6">Clases Pregrabadas VIP</h1>
+            
+            <!-- Contenedor de Login -->
+            <div id="login-container" class="max-w-md mx-auto p-8 bg-gray-700 rounded-lg shadow-xl border border-indigo-500">
+                <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Acceso Restringido</h2>
+                <p class="text-gray-300 mb-4">Introduce tus credenciales para acceder al contenido de inducción.</p>
+                
+                <div id="error-message" class="text-red-400 mb-4 hidden font-medium bg-red-900/30 p-2 rounded">Credenciales incorrectas. Intenta de nuevo.</div>
+
+                <form id="login-form" onsubmit="event.preventDefault(); handleLogin();" class="space-y-4">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-300">Usuario:</label>
+                        <input type="text" id="username" class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 text-white" required>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-300">Contraseña:</label>
+                        <input type="password" id="password" class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 text-white" required>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 border border-transparent rounded-md shadow-md text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-yellow-500 transition duration-200">
+                        Acceder
+                    </button>
+                    <p class="text-xs text-gray-400 pt-2 text-center">Usuario Demo: liss_user | Contraseña Demo: trading2024</p>
+                </form>
+            </div>
+
+            <!-- Contenido VIP (Oculto hasta el login) -->
+            <div id="vip-content" class="hidden mt-8 p-6 bg-gray-900 border border-yellow-500 rounded-lg shadow-inner">
+                <h2 class="text-3xl font-bold text-yellow-500 mb-4">Módulo 1: Fundamentos de la Comunidad</h2>
+                <p class="text-lg text-gray-300 mb-4">¡Bienvenido! Aquí encontrarás las clases de inducción. Dado que las alojarás en GitHub, aquí irían los enlaces a tus videos pregrabados (por ejemplo, archivos `.mp4` o enlaces a YouTube/Vimeo si cambias de opinión).</p>
+                
+                <ul class="list-disc list-inside space-y-2 text-gray-200 ml-4">
+                    <li><a href="#" class="text-indigo-400 hover:text-yellow-500 hover:underline font-medium">Clase 1: Introducción a la Metodología (Video Placeholder)</a></li>
+                    <li><a href="#" class="text-indigo-400 hover:text-yellow-500 hover:underline font-medium">Clase 2: Herramientas Necesarias (Video Placeholder)</a></li>
+                    <li><a href="#" class="text-indigo-400 hover:text-yellow-500 hover:underline font-medium">Clase 3: Gestión de Riesgo (Video Placeholder)</a></li>
+                </ul>
+                <button onclick="logout()" class="mt-6 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md shadow-md transition duration-200">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. Sección de Pronto -->
+        <section id="soon" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl text-center border-t-4 border-indigo-600">
+            <div class="max-w-lg mx-auto">
+                <h1 class="text-4xl font-extrabold text-yellow-500 mb-4">¡Próximamente Grandes Novedades!</h1>
+                <p class="text-xl text-gray-300 mb-6">Estamos trabajando en la expansión de contenido y en nuevas herramientas para potenciar tus resultados. ¡Mantente atento a las actualizaciones!</p>
+                <div class="text-6xl my-8 text-indigo-400">
+                    <!-- Icono de Reloj -->
+                    <svg class="w-20 h-20 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <button onclick="showPage('home')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-md">
+                    Volver al Menú
+                </button>
+            </div>
+        </section>
+
+        <!-- 4. Sección Acerca de Nosotros & Formulario de Registro -->
+        <section id="about" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-indigo-600">
+            <h1 class="text-4xl font-extrabold text-yellow-500 mb-6">Conoce la Comunidad Liss</h1>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Información de la Comunidad -->
+                <div>
+                    <p class="text-gray-300 mb-4">Fundada por Liss con la visión de simplificar el trading para todos. Nos enfocamos en la disciplina, la gestión de riesgo y la consistencia. Nuestro objetivo es que cada miembro encuentre la rentabilidad a largo plazo.</p>
+                    <p class="text-gray-300 mb-6 font-semibold border-l-4 border-yellow-500 pl-4 py-1">"El trading es 80% psicología y 20% técnica." - Liss</p>
+                    
+                    <h2 class="text-2xl font-bold text-indigo-400 mb-3 mt-6">Ver Registros Locales</h2>
+                    <p class="text-gray-400 mb-4">Haz clic para ver las personas que se han registrado usando este formulario localmente en tu navegador.</p>
+                    <button onclick="showPage('records')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-md transition duration-300 transform hover:scale-105 shadow-md">
+                        <svg class="w-5 h-5 inline mr-2 -mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                        Ver Registros (Local)
+                    </button>
+                </div>
+
+                <!-- Formulario de Registro -->
+                <div class="p-6 bg-gray-700 rounded-lg shadow-xl border border-indigo-500">
+                    <h2 class="text-2xl font-bold text-indigo-400 mb-4">Regístrate en la Comunidad</h2>
+                    <div id="registration-message" class="text-yellow-400 mb-4 hidden font-medium p-2 bg-yellow-900/30 rounded">¡Registro exitoso!</div>
+                    
+                    <form id="registration-form" onsubmit="event.preventDefault(); handleRegistration();" class="space-y-4">
+                        <div>
+                            <label for="reg-name" class="block text-sm font-medium text-gray-300">Nombre Completo:</label>
+                            <input type="text" id="reg-name" class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 text-white" required>
+                        </div>
+                        <div>
+                            <label for="reg-username" class="block text-sm font-medium text-gray-300">Usuario Deseado:</label>
+                            <input type="text" id="reg-username" class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 text-white" required>
+                        </div>
+                        <div>
+                            <label for="reg-password" class="block text-sm font-medium text-gray-300">Contraseña:</label>
+                            <input type="password" id="reg-password" class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 text-white" required>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 border border-transparent rounded-md shadow-lg text-lg font-medium hover:bg-indigo-700 transition duration-200">
+                            Enviar Registro
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 5. Sección de Registros (Vista de Administrador/Local) -->
+        <section id="records" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-indigo-600">
+            <h1 class="text-4xl font-extrabold text-yellow-500 mb-6">Lista de Registros (Almacenamiento Local)</h1>
+            <p class="text-gray-400 mb-4">Estos datos se guardan **localmente** en tu navegador. Para un uso real, necesitarías una base de datos como Firestore.</p>
+
+            <div class="overflow-x-auto shadow-lg rounded-lg border border-gray-700">
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead class="bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Nombre Completo</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Usuario</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Contraseña (Hash Simulado)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registration-list" class="bg-gray-900 divide-y divide-gray-700">
+                        <!-- Los registros se insertarán aquí con JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-8 flex justify-between">
+                <button onclick="showPage('about')" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-md transition duration-300 shadow-md">
+                    Volver a Acerca de Nosotros
+                </button>
+                <button onclick="clearRegistrations()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-md transition duration-300 shadow-md">
+                    Limpiar Registros (Local)
+                </button>
+            </div>
+        </section>
+
+        <!-- Contenedor de Mensaje Temporal (Tipo Modal) -->
+        <div id="modal-message" class="fixed inset-0 bg-gray-900 bg-opacity-80 hidden items-center justify-center z-[100]">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-2xl max-w-sm w-full text-center border-t-4 border-yellow-500">
+                <p id="modal-text" class="text-lg font-semibold text-gray-200 mb-4">Mensaje</p>
+                <button onclick="hideModal()" class="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition shadow-md">Aceptar</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-4 mt-auto border-t border-indigo-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2024 Liss Trading Community. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- CONSTANTES DE AUTENTICACIÓN ---
+        const VALID_USERNAME = 'liss_user';
+        const VALID_PASSWORD = 'trading2024';
+        const REGISTRATIONS_KEY = 'liss_registrations';
+        let isLoggedIn = false;
+
+        // --- MANEJO DE VISTAS Y NAVEGACIÓN ---
+
+        document.getElementById('menu-button').addEventListener('click', () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        function closeMenuAndShowPage(pageId) {
+            document.getElementById('mobile-menu').classList.add('hidden');
+            showPage(pageId);
+        }
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.style.display = 'none');
+
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                window.scrollTo(0, 0); // Ir al inicio de la página
+
+                // Lógica específica al cargar la página
+                if (pageId === 'classes') {
+                    // Si intenta acceder a Clases, verificar estado de login
+                    updateClassesView();
+                } else if (pageId === 'records') {
+                    // Si carga la página de Registros, actualizar la tabla
+                    loadRegistrations();
+                }
+            }
+        }
+
+        // --- MANEJO DE MODAL (Reemplazo de alert/confirm) ---
+
+        function showModal(message) {
+            document.getElementById('modal-text').textContent = message;
+            document.getElementById('modal-message').classList.remove('hidden');
+            document.getElementById('modal-message').classList.add('flex');
+        }
+
+        function hideModal() {
+            document.getElementById('modal-message').classList.add('hidden');
+            document.getElementById('modal-message').classList.remove('flex');
+        }
+
+        // --- LÓGICA DE AUTENTICACIÓN (Clases Pregrabadas) ---
+
+        function updateClassesView() {
+            const loginContainer = document.getElementById('login-container');
+            const vipContent = document.getElementById('vip-content');
+
+            if (isLoggedIn) {
+                loginContainer.classList.add('hidden');
+                vipContent.classList.remove('hidden');
+            } else {
+                loginContainer.classList.remove('hidden');
+                vipContent.classList.add('hidden');
+            }
+        }
+
+        function handleLogin() {
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (usernameInput === VALID_USERNAME && passwordInput === VALID_PASSWORD) {
+                isLoggedIn = true;
+                errorMessage.classList.add('hidden');
+                updateClassesView();
+                showModal('¡Acceso concedido! Bienvenido al área VIP.');
+                // Limpiar campos de login
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            } else {
+                isLoggedIn = false;
+                errorMessage.classList.remove('hidden');
+                showModal('Error de credenciales. Por favor, verifica el usuario y la contraseña.');
+            }
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            updateClassesView();
+            showModal('Sesión cerrada correctamente.');
+        }
+
+        // --- MANEJO DE REGISTROS LOCALES (Formulario) ---
+
+        function getRegistrations() {
+            try {
+                const data = localStorage.getItem(REGISTRATIONS_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                console.error("Error al obtener registros de localStorage:", e);
+                return [];
+            }
+        }
+
+        function saveRegistrations(registrations) {
+            try {
+                localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(registrations));
+            } catch (e) {
+                console.error("Error al guardar registros en localStorage:", e);
+                showModal('Error al guardar los datos localmente.');
+            }
+        }
+
+        function handleRegistration() {
+            const name = document.getElementById('reg-name').value.trim();
+            const username = document.getElementById('reg-username').value.trim();
+            const password = document.getElementById('reg-password').value.trim();
+
+            if (!name || !username || !password) {
+                showModal('Por favor, completa todos los campos del formulario.');
+                return;
+            }
+
+            // Simulación de "hash" o cifrado para no guardar la contraseña en texto plano (aunque sigue siendo inseguro, es mejor que nada)
+            const passwordHash = '*'.repeat(password.length) + password.substring(password.length - 4); 
+
+            const newRegistration = {
+                name: name,
+                username: username,
+                passwordHash: passwordHash,
+                timestamp: new Date().toLocaleString()
+            };
+
+            const registrations = getRegistrations();
+            registrations.push(newRegistration);
+            saveRegistrations(registrations);
+
+            // Mostrar mensaje de éxito
+            const messageEl = document.getElementById('registration-message');
+            messageEl.classList.remove('hidden');
+            setTimeout(() => messageEl.classList.add('hidden'), 5000);
+
+            // Limpiar el formulario
+            document.getElementById('registration-form').reset();
+            showModal('¡Te has registrado con éxito! Puedes ver el registro en la sección correspondiente.');
+        }
+        
+        function loadRegistrations() {
+            const registrations = getRegistrations();
+            const listBody = document.getElementById('registration-list');
+            listBody.innerHTML = ''; // Limpiar lista anterior
+
+            if (registrations.length === 0) {
+                listBody.innerHTML = `<tr><td colspan="3" class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">No hay registros guardados localmente.</td></tr>`;
+                return;
+            }
+
+            registrations.forEach(reg => {
+                const row = listBody.insertRow();
+                row.className = 'hover:bg-gray-800 transition duration-150';
+                
+                let cellName = row.insertCell();
+                cellName.textContent = reg.name;
+                cellName.className = 'px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-200';
+
+                let cellUser = row.insertCell();
+                cellUser.textContent = reg.username;
+                cellUser.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-400';
+
+                let cellPass = row.insertCell();
+                cellPass.textContent = reg.passwordHash;
+                cellPass.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-400 italic';
+            });
+        }
+
+        function clearRegistrations() {
+            // Usamos el modal para confirmar antes de borrar, ya que window.confirm() está prohibido.
+            document.getElementById('modal-text').innerHTML = '¿Estás seguro de que deseas **eliminar todos los registros locales**? Esta acción es irreversible.';
+            document.getElementById('modal-message').classList.remove('hidden');
+            document.getElementById('modal-message').classList.add('flex');
+
+            const acceptButton = document.querySelector('#modal-message button');
+            acceptButton.textContent = 'Sí, Eliminar';
+            acceptButton.onclick = () => {
+                localStorage.removeItem(REGISTRATIONS_KEY);
+                loadRegistrations();
+                hideModal();
+                // Restaurar el botón original después de la acción
+                acceptButton.textContent = 'Aceptar';
+                acceptButton.onclick = hideModal; 
+                showModal('Todos los registros locales han sido eliminados.');
+            };
+
+        }
+
+        // --- INICIALIZACIÓN ---
+        window.onload = function() {
+            showPage('home'); // Mostrar la página de inicio al cargar
+        }
+    </script>
+</body>
+</html>
