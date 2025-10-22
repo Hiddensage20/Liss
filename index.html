@@ -73,7 +73,7 @@
                 <nav class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4 text-white">
                         <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('home')">Menú</a>
-                        <a href="#" class="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('classes')">Clases Pregrabadas</a>
+                        <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('classes')">Clases Pregrabadas</a>
                         <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('soon')">Pronto</a>
                         <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('about')">Acerca de Nosotros</a>
                         <a id="admin-nav-link" href="#" class="px-3 py-2 rounded-md text-sm font-medium bg-yellow-600 text-gray-900 hover:bg-yellow-500 transition duration-150" onclick="showPage('admin')">Admin Access</a>
@@ -148,30 +148,45 @@
 
             <!-- Contenido VIP (Oculto hasta el login) -->
             <div id="vip-content" class="hidden mt-8 p-6 bg-gray-900 border border-yellow-500 rounded-lg shadow-inner">
-                <h2 class="text-3xl font-bold text-yellow-500 mb-4">Módulo 1: Fundamentos de la Comunidad</h2>
-                <p class="text-lg text-gray-300 mb-4">¡Bienvenido! Aquí encontrarás las clases de inducción. Recomendamos crear una carpeta llamada `/videos` y enlazar tus archivos `.mp4`.</p>
+                <h2 class="text-3xl font-bold text-yellow-500 mb-6 border-b border-gray-700 pb-2">Contenido Exclusivo para Alumnos</h2>
                 
-                <ul class="list-disc list-inside space-y-4 text-gray-200 ml-4">
-                    <!-- Ejemplo de cómo incrustar un video MP4 local de GitHub Pages -->
-                    <li>
-                        <h3 class="text-xl font-semibold text-indigo-400 mb-2">Clase 1: Introducción a la Metodología</h3>
-                        <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                            <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
-                                <source src="videos/clase_1_introduccion.mp4" type="video/mp4">
-                                <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (URL de ejemplo: videos/clase_1_introduccion.mp4)</p>
-                            </video>
+                <!-- MÓDULO 1: Fundamentos -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-indigo-400 mb-4">Módulo 1: Fundamentos de la Comunidad</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
+                            <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.1: Bienvenida y Metodología</h4>
+                            <p class="text-gray-400 mb-3">Introducción a la filosofía de Liss Trading y pasos iniciales.</p>
+                            <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
+                                <!-- Ejemplo de cómo incrustar un video MP4 local de GitHub Pages -->
+                                <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
+                                    <source src="videos/clase_1_introduccion.mp4" type="video/mp4">
+                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (URL de ejemplo: videos/clase_1_introduccion.mp4)</p>
+                                </video>
+                            </div>
                         </div>
-                    </li>
-                    <!-- Ejemplo de clase con enlace directo -->
-                    <li>
-                        <h3 class="text-xl font-semibold text-indigo-400 mb-2">Clase 2: Herramientas Necesarias</h3>
-                        <a href="videos/clase_2_herramientas.mp4" target="_blank" class="text-yellow-500 hover:underline">Ver Video en Ventana Nueva (Ejemplo)</a>
-                    </li>
-                    <li>
-                        <h3 class="text-xl font-semibold text-indigo-400 mb-2">Clase 3: Gestión de Riesgo</h3>
-                        <p class="text-gray-400">Video de Gestión de Riesgo pendiente de carga.</p>
-                    </li>
-                </ul>
+                        <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
+                            <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.2: Glosario Básico y Setup</h4>
+                            <a href="videos/clase_1_2_setup.mp4" target="_blank" class="text-yellow-500 hover:underline">Ver Video en Ventana Nueva (Ejemplo)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO 2: Herramientas -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-indigo-400 mb-4">Módulo 2: Herramientas Necesarias</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
+                            <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.1: TradingView (Uso Básico)</h4>
+                            <p class="text-gray-400">Video pendiente de carga.</p>
+                        </div>
+                        <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
+                            <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.2: Configuración de Broker</h4>
+                            <p class="text-gray-400">Video pendiente de carga.</p>
+                        </div>
+                    </div>
+                </div>
+
                 <button onclick="logout()" class="mt-6 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md shadow-md transition duration-200">
                     Cerrar Sesión
                 </button>
@@ -194,10 +209,11 @@
             </div>
         </section>
 
-        <!-- 4. Sección Acerca de Nosotros & Formulario de Registro (Sin cambios) -->
+        <!-- 4. Sección Acerca de Nosotros & Formulario de Registro (FORMULARIO OCULTO) -->
         <section id="about" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-indigo-600">
             <h1 class="text-4xl font-extrabold text-yellow-500 mb-6">Conoce la Comunidad Liss</h1>
             <div class="grid md:grid-cols-2 gap-8">
+                <!-- Información de la Comunidad -->
                 <div>
                     <p class="text-gray-300 mb-4">Fundada por Liss con la visión de simplificar el trading para todos. Nos enfocamos en la disciplina, la gestión de riesgo y la consistencia. Nuestro objetivo es que cada miembro encuentre la rentabilidad a largo plazo.</p>
                     <p class="text-gray-300 mb-6 font-semibold border-l-4 border-yellow-500 pl-4 py-1">"El trading es 80% psicología y 20% técnica." - Liss</p>
@@ -209,7 +225,9 @@
                         Ir al Acceso de Administrador
                     </button>
                 </div>
-                <div class="p-6 bg-gray-700 rounded-lg shadow-xl border border-red-500">
+
+                <!-- Formulario de Registro (Ahora es un comentario invisible) -->
+                <!-- <div class="p-6 bg-gray-700 rounded-lg shadow-xl border border-red-500">
                     <h2 class="text-2xl font-bold text-red-400 mb-4">Registro (No Disponible)</h2>
                     <div class="text-center p-4 bg-red-900/40 rounded-lg border border-red-500">
                         <p class="text-lg font-semibold text-white mb-2">¡Formulario en Construcción!</p>
@@ -219,7 +237,9 @@
                     <div class="mt-4 text-gray-500 text-sm italic text-center">
                         (Esta es una simulación. El formulario ha sido desactivado temporalmente.)
                     </div>
-                </div>
+                </div> -->
+                <!-- Fin del Formulario de Registro Oculto -->
+
             </div>
         </section>
         
@@ -376,7 +396,7 @@
                     document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-green-300');
                     // Mostrar la página inicial si aún no está visible
                     if (document.querySelector('.page-content[style*="block"]') === null) {
-                         showPage('home'); 
+                        showPage('home'); 
                     }
                 });
 
@@ -441,8 +461,8 @@
                         hideModal();
                         callback(true);
                         setTimeout(() => {
-                             acceptButton.textContent = 'Aceptar';
-                             acceptButton.onclick = hideModal;
+                            acceptButton.textContent = 'Aceptar';
+                            acceptButton.onclick = hideModal;
                         }, 100);
                     };
                 }
