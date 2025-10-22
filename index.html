@@ -150,13 +150,6 @@
             <div id="vip-content" class="hidden mt-8 p-6 bg-gray-900 border border-yellow-500 rounded-lg shadow-inner">
                 <h2 class="text-3xl font-bold text-yellow-500 mb-6 border-b border-gray-700 pb-2">Contenido Exclusivo para Alumnos</h2>
                 
-                <!-- Variable para la URL base de tu GitHub Pages -->
-                <script>
-                    // Reemplaza ESTA URL con la dirección base de tu página publicada (sin index.html)
-                    // Ejemplo: https://hiddensage20.github.io/Liss
-                    const GITHUB_PAGES_BASE_URL = "https://hiddensage20.github.io/Liss";
-                </script>
-
                 <!-- MÓDULO 1: Fundamentos -->
                 <div class="mb-8">
                     <h3 class="text-2xl font-bold text-indigo-400 mb-4">Módulo 1: Fundamentos de la Comunidad</h3>
@@ -165,22 +158,28 @@
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.1: Bienvenida y Metodología</h4>
                             <p class="text-gray-400 mb-3">Introducción a la filosofía de Liss Trading y pasos iniciales.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 1: URL GENERADA DINÁMICAMENTE -->
-                                <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
-                                    <source id="video-source-1" type="video/mp4" data-filename="clase_1_metodologia.mp4">
-                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Archivo esperado: clase_1_metodologia.mp4)</p>
-                                </video>
+                                <!-- VIDEO 1: IFRAME DE VIMEO -->
+                                <iframe 
+                                    class="absolute top-0 left-0 w-full h-full rounded-lg"
+                                    src="https://player.vimeo.com/video/1129599515?h=abcdef1234&title=0&byline=0&portrait=0" 
+                                    frameborder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture" 
+                                    allowfullscreen
+                                ></iframe>
                             </div>
                         </div>
                         <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.2: Glosario Básico y Setup</h4>
                             <p class="text-gray-400 mb-3">Definiciones clave y preparación de tu entorno de trabajo.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 2: URL GENERADA DINÁMICAMENTE -->
-                                <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
-                                    <source id="video-source-2" type="video/mp4" data-filename="clase_2_glosario.mp4">
-                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Archivo esperado: clase_2_glosario.mp4)</p>
-                                </video>
+                                <!-- VIDEO 2: IFRAME DE VIMEO -->
+                                <iframe 
+                                    class="absolute top-0 left-0 w-full h-full rounded-lg"
+                                    src="https://player.vimeo.com/video/[ID_DEL_VIDEO_2]?h=abcdef1234&title=0&byline=0&portrait=0" 
+                                    frameborder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture" 
+                                    allowfullscreen
+                                ></iframe>
                             </div>
                         </div>
                     </div>
@@ -194,11 +193,14 @@
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.1: Gestión de Riesgo (La Clave)</h4>
                             <p class="text-gray-400 mb-3">Aprende a proteger tu capital antes de operar.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 3: URL GENERADA DINÁMICAMENTE -->
-                                <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
-                                    <source id="video-source-3" type="video/mp4" data-filename="clase_3_riesgo.mp4">
-                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Archivo esperado: clase_3_riesgo.mp4)</p>
-                                </video>
+                                <!-- VIDEO 3: IFRAME DE VIMEO -->
+                                <iframe 
+                                    class="absolute top-0 left-0 w-full h-full rounded-lg"
+                                    src="https://player.vimeo.com/video/[ID_DEL_VIDEO_3]?h=abcdef1234&title=0&byline=0&portrait=0" 
+                                    frameborder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture" 
+                                    allowfullscreen
+                                ></iframe>
                             </div>
                         </div>
                         <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
@@ -458,8 +460,8 @@
                 if (pageId === 'classes') {
                     updateClassesView();
                     // Ejecutar la función que inyecta las URLs de video después de mostrar la página
-                    if (isLoggedIn && typeof injectVideoUrls === 'function') {
-                        injectVideoUrls();
+                    if (isLoggedIn && typeof injectVimeoUrls === 'function') {
+                        injectVimeoUrls();
                     }
                 } else if (pageId === 'admin') {
                     updateAdminView();
@@ -467,27 +469,35 @@
             }
         }
 
-        // --- FUNCIÓN DINÁMICA PARA INYECTAR URLS DE VIDEO ---
-        function injectVideoUrls() {
-            // Esta URL DEBE ser la dirección de tu GitHub Pages (ej: https://hiddensage20.github.io/Liss)
-            const GITHUB_PAGES_BASE_URL = "https://hiddensage20.github.io/Liss"; 
+        // --- FUNCIÓN DINÁMICA PARA INYECTAR URLS DE VIMEO ---
+        function injectVimeoUrls() {
+            // IDs de los videos de Vimeo. DEBES REEMPLAZAR ESTOS IDs CON LOS REALES.
+            const VIMEO_IDS = {
+                // El ID de Vimeo es la secuencia de números al final de la URL del video.
+                'ID_DEL_VIDEO_1': '1129599515', // CLASE 1.1: EL ID REAL DEL USUARIO
+                'ID_DEL_VIDEO_2': '76979872', // Placeholder
+                'ID_DEL_VIDEO_3': '76979873' // Placeholder
+            }; 
             
-            const videos = [
-                // Usamos data-filename para obtener los nombres de archivo directamente de los elementos.
-                { id: 'video-source-1', filename: document.getElementById('video-source-1').getAttribute('data-filename') },
-                { id: 'video-source-2', filename: document.getElementById('video-source-2').getAttribute('data-filename') },
-                { id: 'video-source-3', filename: document.getElementById('video-source-3').getAttribute('data-filename') }
-            ];
+            // Recorrer todos los iframes en la sección VIP
+            const iframes = document.querySelectorAll('#vip-content iframe');
+            
+            iframes.forEach(iframe => {
+                const src = iframe.src;
+                
+                // 1. Encontrar el placeholder dentro de la URL (ej: [ID_DEL_VIDEO_1])
+                const placeholderMatch = src.match(/\[ID_DEL_VIDEO_\d+\]/);
 
-            videos.forEach(video => {
-                const element = document.getElementById(video.id);
-                if (element && video.filename) {
-                    // Crea la URL completa usando la base de GitHub Pages
-                    element.src = `${GITHUB_PAGES_BASE_URL}/videos/${video.filename}`;
-                    // Forzar la recarga del video en el reproductor (importante para HTML5 video)
-                    const videoPlayer = element.parentElement;
-                    if (videoPlayer && videoPlayer.tagName === 'VIDEO') {
-                        videoPlayer.load();
+                if (placeholderMatch) {
+                    const placeholder = placeholderMatch[0]; // Ej: [ID_DEL_VIDEO_1]
+                    // Quitamos los corchetes
+                    const idKey = placeholder.replace(/\[|\]/g, ''); // Ej: ID_DEL_VIDEO_1
+
+                    const vimeoId = VIMEO_IDS[idKey];
+
+                    if (vimeoId && vimeoId !== idKey) {
+                        // 2. Reemplazar el placeholder con el ID real de Vimeo
+                        iframe.src = src.replace(placeholder, vimeoId);
                     }
                 }
             });
@@ -573,8 +583,8 @@
                     isLoggedIn = true;
                     updateClassesView();
                     // Llamar a la función de inyección de URLs aquí para cargar los videos
-                    if (typeof injectVideoUrls === 'function') {
-                        injectVideoUrls();
+                    if (typeof injectVimeoUrls === 'function') {
+                        injectVimeoUrls();
                     }
                     showModal(`¡Acceso concedido a ${foundUser.name || foundUser.username}! Bienvenido al área VIP.`);
                     document.getElementById('username').value = '';
