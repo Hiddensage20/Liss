@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liss Trading Community - Inicio</title>
-    <!-- Carga de Tailwind CSS -->
+    <title>Momentum Money Community - Inicio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Scripts de Firebase Firestore y Auth -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -15,7 +13,6 @@
             getFirestore, collection, query, where, addDoc, 
             getDocs, deleteDoc, doc, onSnapshot, setLogLevel 
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        // Importante: exportamos las funciones y variables necesarias para el script global
         window.initializeApp = initializeApp;
         window.getAuth = getAuth;
         window.signInAnonymously = signInAnonymously;
@@ -31,36 +28,32 @@
         window.deleteDoc = deleteDoc;
         window.doc = doc;
         window.onSnapshot = onSnapshot;
-        // setLogLevel('Debug'); // Descomentar para ver logs de Firebase
     </script>
 
-    <!-- Configuración de la fuente Inter y colores base de Tailwind -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1a1a1a; /* Fondo negro profundo */
-            color: #e5e7eb; /* Texto claro por defecto */
+            background-color: #1a1a1a;
+            color: #e5e7eb;
         }
         .page-content {
             display: none;
         }
-        /* Estilo para el botón de admin activo */
         .admin-logged-in {
-            background-color: #10b981 !important; /* Esmeralda para indicar conexión real */
+            background-color: #10b981 !important;
             color: #1f2937 !important;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Navbar y Menú Desplegable (Sin cambios en estructura) -->
     <header class="bg-gray-900 shadow-xl sticky top-0 z-50 border-b border-indigo-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0">
                     <a href="#" class="text-white text-2xl font-bold tracking-wider hover:text-yellow-500 transition duration-150" onclick="showPage('home')">
-                        Liss Trading
+                        Momentum Money
                     </a>
                 </div>
                 <div class="flex md:flex-row-reverse md:hidden">
@@ -69,7 +62,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <!-- Icono de Estado de Admin para Móvil (pequeño indicador) -->
                     <span id="admin-status-mobile" class="mr-2 self-center block md:hidden w-3 h-3 rounded-full bg-yellow-600"></span>
                 </div>
                 <nav class="hidden md:block">
@@ -94,12 +86,10 @@
         </div>
     </header>
 
-    <!-- Contenido Principal -->
     <main class="flex-grow max-w-7xl mx-auto py-8 sm:px-6 lg:px-8 w-full">
 
-        <!-- 1. Sección de Presentación (Menú/Home) -->
         <section id="home" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl transition duration-500 border-t-4 border-indigo-600">
-            <h1 class="text-5xl font-extrabold text-yellow-500 mb-4">¡Bienvenido a la Comunidad Liss Trading!</h1>
+            <h1 class="text-5xl font-extrabold text-yellow-500 mb-4">¡Bienvenido a la Comunidad Momentum Money!</h1>
             <p class="text-xl text-gray-300 mb-6">Tu camino hacia el trading consciente y rentable comienza aquí. Hemos preparado este espacio para que puedas empezar a tu propio ritmo.</p>
             
             <div class="grid md:grid-cols-2 gap-6 mt-8">
@@ -120,14 +110,12 @@
             </div>
         </section>
 
-        <!-- 2. Sección de Clases Pregrabadas (Protegida) -->
         <section id="classes" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-indigo-600">
             <h1 class="text-4xl font-extrabold text-yellow-500 mb-6">Clases Pregrabadas VIP</h1>
             
-            <!-- Contenedor de Login -->
             <div id="login-container" class="max-w-md mx-auto p-8 bg-gray-700 rounded-lg shadow-xl border border-indigo-500">
                 <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Acceso Restringido</h2>
-                <p class="text-gray-300 mb-4">Introduce tus credenciales para acceder al contenido de inducción. Los datos se validan en tiempo real contra la base de datos de Liss.</p>
+                <p class="text-gray-300 mb-4">Introduce tus credenciales para acceder al contenido de inducción. Los datos se validan en tiempo real contra la base de datos de Momentum Money.</p>
                 
                 <div id="error-message" class="text-red-400 mb-4 hidden font-medium bg-red-900/30 p-2 rounded">Credenciales incorrectas. Intenta de nuevo.</div>
                 <div id="loading-login" class="text-yellow-500 mb-4 hidden font-medium p-2 text-center">Verificando credenciales...</div>
@@ -148,19 +136,16 @@
                 </form>
             </div>
 
-            <!-- Contenido VIP (Oculto hasta el login) -->
             <div id="vip-content" class="hidden mt-8 p-6 bg-gray-900 border border-yellow-500 rounded-lg shadow-inner">
                 <h2 class="text-3xl font-bold text-yellow-500 mb-6 border-b border-gray-700 pb-2">Contenido Exclusivo para Alumnos</h2>
                 
-                <!-- MÓDULO 1: Fundamentos -->
                 <div class="mb-8">
                     <h3 class="text-2xl font-bold text-indigo-400 mb-4">Módulo 1: Fundamentos de la Comunidad</h3>
                     <div class="space-y-4">
                         <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.1: Bienvenida y Metodología</h4>
-                            <p class="text-gray-400 mb-3">Introducción a la filosofía de Liss Trading y pasos iniciales.</p>
+                            <p class="text-gray-400 mb-3">Introducción a la filosofía de Momentum Money y pasos iniciales.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 1: IFRAME DE GOOGLE DRIVE (Clase 1.1) - ID INSERTADO -->
                                 <iframe 
                                     class="absolute top-0 left-0 w-full h-full rounded-lg"
                                     src="https://drive.google.com/file/d/1XBkoc55Y7ucOE-ZZOzz1j5BVVHUtzhLi/preview" 
@@ -174,7 +159,6 @@
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.2: Glosario Básico y Setup</h4>
                             <p class="text-gray-400 mb-3">Definiciones clave y preparación de tu entorno de trabajo.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 2: IFRAME DE GOOGLE DRIVE (Clase 1.2) -->
                                 <iframe 
                                     class="absolute top-0 left-0 w-full h-full rounded-lg"
                                     src="https://drive.google.com/file/d/[DRIVE_FILE_ID_2_PLACEHOLDER]/preview" 
@@ -187,7 +171,6 @@
                     </div>
                 </div>
 
-                <!-- MÓDULO 2: Herramientas -->
                 <div class="mb-8">
                     <h3 class="text-2xl font-bold text-indigo-400 mb-4">Módulo 2: Herramientas y Riesgo</h3>
                     <div class="space-y-4">
@@ -195,7 +178,6 @@
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.1: Gestión de Riesgo (La Clave)</h4>
                             <p class="text-gray-400 mb-3">Aprende a proteger tu capital antes de operar.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 3: IFRAME DE GOOGLE DRIVE (Clase 2.1) -->
                                 <iframe 
                                     class="absolute top-0 left-0 w-full h-full rounded-lg"
                                     src="https://drive.google.com/file/d/[DRIVE_FILE_ID_3_PLACEHOLDER]/preview" 
@@ -218,7 +200,6 @@
             </div>
         </section>
 
-        <!-- 3. Sección de Pronto (Sin cambios) -->
         <section id="soon" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl text-center border-t-4 border-indigo-600">
             <div class="max-w-lg mx-auto">
                 <h1 class="text-4xl font-extrabold text-yellow-500 mb-4">¡Próximamente Grandes Novedades!</h1>
@@ -234,11 +215,9 @@
             </div>
         </section>
 
-        <!-- 4. Sección Acerca de Nosotros & Formulario de Registro (FORMULARIO OCULTO) -->
         <section id="about" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-indigo-600">
-            <h1 class="text-4xl font-extrabold text-yellow-500 mb-6">Conoce la Comunidad Liss</h1>
+            <h1 class="text-4xl font-extrabold text-yellow-500 mb-6">Conoce la Comunidad Momentum Money</h1>
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Información de la Comunidad -->
                 <div>
                     <p class="text-gray-300 mb-4">Fundada por Liss con la visión de simplificar el trading para todos. Nos enfocamos en la disciplina, la gestión de riesgo y la consistencia. Nuestro objetivo es que cada miembro encuentre la rentabilidad a largo plazo.</p>
                     <p class="text-gray-300 mb-6 font-semibold border-l-4 border-yellow-500 pl-4 py-1">"El trading es 80% psicología y 20% técnica." - Liss</p>
@@ -251,31 +230,15 @@
                     </button>
                 </div>
 
-                <!-- Formulario de Registro (Ahora es un comentario invisible) -->
-                <!-- <div class="p-6 bg-gray-700 rounded-lg shadow-xl border border-red-500">
-                    <h2 class="text-2xl font-bold text-red-400 mb-4">Registro (No Disponible)</h2>
-                    <div class="text-center p-4 bg-red-900/40 rounded-lg border border-red-500">
-                        <p class="text-lg font-semibold text-white mb-2">¡Formulario en Construcción!</p>
-                        <p class="text-gray-200">El registro de nuevos usuarios aún no se encuentra en funcionamiento.</p>
-                        <p class="mt-4 text-xl font-bold text-yellow-500">Si requieres asesoramiento, comunícate al *********</p>
-                    </div>
-                    <div class="mt-4 text-gray-500 text-sm italic text-center">
-                        (Esta es una simulación. El formulario ha sido desactivado temporalmente.)
-                    </div>
-                </div> -->
-                <!-- Fin del Formulario de Registro Oculto -->
-
             </div>
         </section>
         
-        <!-- 5. Sección de Acceso para Administradores (ACTUALIZADA con FIREBASE) -->
         <section id="admin" class="page-content bg-gray-800 p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-yellow-500">
             <h1 class="text-4xl font-extrabold text-yellow-500 mb-6">Acceso para Administradores</h1>
             <div id="firestore-status" class="mb-4 text-center p-2 rounded-lg text-sm bg-indigo-900/40 text-indigo-300">
                 Conectando a la Base de Datos...
             </div>
 
-            <!-- Contenedor de Login de Admin -->
             <div id="admin-login-container" class="max-w-md mx-auto p-8 bg-gray-700 rounded-lg shadow-xl border border-yellow-500">
                 <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Panel de Control (Auth Firebase)</h2>
                 <p class="text-gray-300 mb-4">Inicia sesión con la cuenta de administrador registrada en Firebase Email/Password.</p>
@@ -300,12 +263,10 @@
                 </form>
             </div>
 
-            <!-- Panel de Administrador (Oculto hasta el login) -->
             <div id="admin-panel" class="hidden mt-8 p-6 bg-gray-900 border border-indigo-500 rounded-lg shadow-inner">
                 <h2 class="text-3xl font-bold text-indigo-400 mb-4">Gestión de Usuarios (Base de Datos en Tiempo Real)</h2>
                 <p class="text-lg text-gray-300 mb-6">Al estar autenticada, Liss puede registrar nuevos usuarios y eliminar los inactivos.</p>
                 
-                <!-- Formulario de Registro Rápido de Admin -->
                 <div class="p-4 mb-8 bg-gray-800 rounded-lg border border-indigo-600">
                     <h3 class="text-xl font-semibold text-yellow-500 mb-3">Registro de Nuevo Usuario</h3>
                     <div id="admin-registration-message" class="text-green-400 mb-4 hidden font-medium p-2 bg-green-900/30 rounded">¡Registro de usuario exitoso!</div>
@@ -343,7 +304,6 @@
             </div>
         </section>
 
-        <!-- Contenedor de Mensaje Temporal (Tipo Modal) -->
         <div id="modal-message" class="fixed inset-0 bg-gray-900 bg-opacity-80 hidden items-center justify-center z-[100]">
             <div class="bg-gray-800 p-6 rounded-lg shadow-2xl max-w-sm w-full text-center border-t-4 border-yellow-500">
                 <p id="modal-text" class="text-lg font-semibold text-gray-200 mb-4">Mensaje</p>
@@ -354,17 +314,15 @@
 
     <footer class="bg-gray-900 text-gray-400 py-4 mt-auto border-t border-indigo-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
-            <p>&copy; 2024 Liss Trading Community. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Momentum Money Community. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script>
-        // --- VARIABLES GLOBALES DE FIREBASE ---
         let db = null;
         let auth = null;
         let USERS_COLLECTION_PATH = '';
 
-        // Constantes de admin (Ya no se usan, solo para referencia)
         const ADMIN_USERNAME = 'admin_liss';
         const ADMIN_PASSWORD = 'lissadmin2024';
         
@@ -372,11 +330,8 @@
         let isAdminLoggedIn = false;
         let isAuthReady = false;
 
-        // --- INICIALIZACIÓN DE FIREBASE ---
         async function initFirebase() {
             try {
-                // --- CONFIGURACIÓN DE FIREBASE (CORREGIDA) ---
-                // Datos proporcionados por el usuario:
                 const FIREBASE_CONFIG = {
                     apiKey: "AIzaSyDTDA036KgUdNwCXJshztaB6JCdsmyxUZA",
                     authDomain: "paginaliss.firebaseapp.com",
@@ -386,34 +341,26 @@
                     appId: "1:1044001333941:web:fcc20a1f13f7b5933314fc"
                 };
 
-                // Usamos el ID de proyecto para la ruta de la colección.
                 const PROJECT_ID = FIREBASE_CONFIG.projectId;
                 
-                // 1. Inicializar App y Servicios
                 const app = window.initializeApp(FIREBASE_CONFIG); 
                 db = window.getFirestore(app);
                 auth = window.getAuth(app);
                 
-                // 2. Definir el path de la colección.
                 USERS_COLLECTION_PATH = `/artifacts/${PROJECT_ID}/public/data/liss_users`;
 
-                // 3. Autenticación Anónima (permite leer la lista pública de usuarios)
                 await window.signInAnonymously(auth);
 
-                // 4. Observador de estado de autenticación (Para determinar si el admin ya inició sesión)
                 window.onAuthStateChanged(auth, user => {
                     isAuthReady = true;
                     if (user && user.isAnonymous === false) {
-                        // El usuario no es anónimo (es decir, el administrador inició sesión)
                         isAdminLoggedIn = true;
                         document.getElementById('admin-nav-link').classList.add('admin-logged-in');
-                        // Actualizar el estado móvil
                         document.getElementById('admin-status-mobile').classList.replace('bg-yellow-600', 'bg-emerald-500'); 
                         if (document.getElementById('admin').style.display === 'block') {
                             updateAdminView();
                         }
                     } else if (user && user.isAnonymous === true) {
-                        // Es un usuario anónimo
                         isAdminLoggedIn = false;
                         document.getElementById('admin-nav-link').classList.remove('admin-logged-in');
                          document.getElementById('admin-status-mobile').classList.replace('bg-emerald-500', 'bg-yellow-600');
@@ -422,7 +369,6 @@
                     document.getElementById('firestore-status').textContent = 'Base de Datos Conectada.';
                     document.getElementById('firestore-status').classList.replace('bg-indigo-900/40', 'bg-green-900/40');
                     document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-green-300');
-                    // Mostrar la página inicial si aún no está visible
                     if (document.querySelector('.page-content[style*="block"]') === null) {
                         showPage('home'); 
                     }
@@ -430,14 +376,12 @@
 
             } catch (error) {
                 console.error("Error al inicializar Firebase:", error);
-                document.getElementById('firestore-status').textContent = 'ERROR: No se pudo conectar a la base de datos (Verifica la CONFIGURACIÓN).';
+                document.getElementById('firestore-status').textContent = 'ERROR: No se pudo conectar a la base de datos.';
                 document.getElementById('firestore-status').classList.replace('bg-indigo-900/40', 'bg-red-900/40');
                 document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-red-300');
-                showModal('Error crítico al conectar con la base de datos. ¡Revisa la CONFIGURACIÓN y las REGLAS de Firestore!');
+                showModal('Error crítico al conectar con la base de datos.');
             }
         }
-
-        // --- MANEJO DE VISTAS Y NAVEGACIÓN ---
 
         document.getElementById('menu-button').addEventListener('click', () => {
             const mobileMenu = document.getElementById('mobile-menu');
@@ -469,8 +413,6 @@
                 }
             }
         }
-
-        // --- MANEJO DE MODAL (Reemplazo de alert/confirm) ---
 
         let modalCallback = null;
 
@@ -505,8 +447,6 @@
             document.getElementById('modal-message').classList.remove('flex');
         }
 
-        // --- LÓGICA DE AUTENTICACIÓN (Clases Pregrabadas) ---
-
         function updateClassesView() {
             const loginContainer = document.getElementById('login-container');
             const vipContent = document.getElementById('vip-content');
@@ -532,11 +472,9 @@
             loadingIndicator.classList.remove('hidden');
 
             try {
-                // 1. Crear query para buscar el usuario
                 const usersRef = window.collection(db, USERS_COLLECTION_PATH);
                 const q = window.query(usersRef, window.where('username', '==', usernameInput));
                 
-                // 2. Ejecutar la búsqueda en Firestore
                 const querySnapshot = await window.getDocs(q);
                 
                 let foundUser = null;
@@ -544,7 +482,6 @@
                     foundUser = doc.data();
                 });
 
-                // 3. Validar credenciales
                 if (foundUser && foundUser.password === passwordInput) {
                     isLoggedIn = true;
                     updateClassesView();
@@ -571,17 +508,14 @@
             showModal('Sesión cerrada correctamente.');
         }
 
-        // --- LÓGICA DE AUTENTICACIÓN DE ADMINISTRADOR ---
-
         function updateAdminView() {
             const loginContainer = document.getElementById('admin-login-container');
             const adminPanel = document.getElementById('admin-panel');
 
-            // Si el Admin está realmente logueado en Firebase (no es anónimo)
             if (isAdminLoggedIn) {
                 loginContainer.classList.add('hidden');
                 adminPanel.classList.remove('hidden');
-                loadAdminRegistrations(); // Inicia la escucha en tiempo real
+                loadAdminRegistrations();
             } else {
                 loginContainer.classList.remove('hidden');
                 adminPanel.classList.add('hidden');
@@ -600,11 +534,8 @@
             loadingIndicator.classList.remove('hidden');
 
             try {
-                // Autenticar al administrador con Email/Password de Firebase
                 await window.signInWithEmailAndPassword(auth, emailInput, passwordInput);
                 
-                // Si el login es exitoso, el onAuthStateChanged se dispara y actualiza isAdminLoggedIn
-                // y llama a updateAdminView, pero llamamos de forma manual para una respuesta inmediata
                 showModal('¡Inicio de sesión de administrador exitoso! Ahora puedes gestionar usuarios.');
                 updateAdminView(); 
             } catch (e) {
@@ -619,9 +550,7 @@
         function adminLogout() {
             if (!auth) return showModal('Error de conexión. Autenticación no inicializada.');
             
-            // Cerrar la sesión del administrador
             window.signOut(auth).then(() => {
-                // Después de cerrar sesión, volvemos a iniciar la sesión anónima
                 window.signInAnonymously(auth);
                 
                 isAdminLoggedIn = false;
@@ -634,10 +563,6 @@
             });
         }
 
-
-        // --- GESTIÓN DE REGISTROS CON FIRESTORE (CRUD) ---
-
-        // CREATE (Admin Registration)
         async function handleAdminRegistration() {
             if (!isAdminLoggedIn) return showModal('Error de acceso. Debes iniciar sesión como administrador de Firebase primero.');
             
@@ -650,7 +575,6 @@
             }
 
             try {
-                // 1. Verificar si el usuario ya existe antes de añadir (por username)
                 const usersRef = window.collection(db, USERS_COLLECTION_PATH);
                 const q = window.query(usersRef, window.where('username', '==', username));
                 const existingUsers = await window.getDocs(q);
@@ -659,7 +583,6 @@
                     return showModal(`Error: El usuario '${username}' ya existe.`);
                 }
                 
-                // 2. Añadir el nuevo documento
                 await window.addDoc(usersRef, {
                     name: name,
                     username: username,
@@ -667,12 +590,10 @@
                     timestamp: new Date().toISOString()
                 });
 
-                // Mostrar mensaje de éxito
                 const messageEl = document.getElementById('admin-registration-message');
                 messageEl.classList.remove('hidden');
                 setTimeout(() => messageEl.classList.add('hidden'), 5000);
 
-                // Limpiar el formulario
                 document.getElementById('admin-registration-form').reset();
                 showModal(`Usuario '${username}' registrado con éxito en la nube.`);
 
@@ -682,13 +603,11 @@
             }
         }
         
-        // READ (Load Registrations - Real-time using onSnapshot)
         let unsubscribeAdminListener = null;
 
         function loadAdminRegistrations() {
-            if (!db || !isAdminLoggedIn) return; // Solo cargar si estamos en Admin View y logueados
+            if (!db || !isAdminLoggedIn) return;
             
-            // Si ya hay un listener activo, lo desuscribimos
             if (unsubscribeAdminListener) {
                 unsubscribeAdminListener();
             }
@@ -696,13 +615,11 @@
             const usersRef = window.collection(db, USERS_COLLECTION_PATH);
             const listBody = document.getElementById('admin-registration-list');
 
-            // onSnapshot: Mantiene la lista sincronizada en tiempo real
             unsubscribeAdminListener = window.onSnapshot(usersRef, (snapshot) => {
-                listBody.innerHTML = ''; // Limpiar lista
+                listBody.innerHTML = '';
                 const registrations = [];
                 
                 snapshot.forEach(doc => {
-                    // Almacenamos el ID del documento, que será necesario para eliminar
                     registrations.push({ ...doc.data(), id: doc.id }); 
                 });
 
@@ -724,7 +641,7 @@
                     cellUser.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-400';
 
                     let cellPass = row.insertCell();
-                    cellPass.textContent = reg.password; // Muestra la contraseña (solo visible para admin)
+                    cellPass.textContent = reg.password;
                     cellPass.className = 'px-6 py-4 whitespace-nowrap text-sm text-yellow-400';
 
                     let cellAction = row.insertCell();
@@ -733,7 +650,6 @@
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'Eliminar';
                     deleteButton.className = 'text-red-500 hover:text-red-700 bg-red-900/30 px-3 py-1 rounded-md transition';
-                    // Pasamos el ID del documento para borrarlo
                     deleteButton.onclick = () => confirmDeleteRegistration(reg.id, reg.username);
                     cellAction.appendChild(deleteButton);
                 });
@@ -743,7 +659,6 @@
             });
         }
         
-        // DELETE (Confirmación y Borrado)
         function confirmDeleteRegistration(docId, username) {
             showModal(`¿Estás seguro de que deseas eliminar al usuario '${username}'? Esta acción lo bloqueará en todos los dispositivos.`, true, (confirmed) => {
                 if (confirmed) {
@@ -765,12 +680,10 @@
             }
         }
 
-        // --- INICIALIZACIÓN FINAL ---
         window.onload = function() {
             initFirebase();
-            showPage('home'); // Mostrar la página de inicio al cargar
+            showPage('home');
         }
     </script>
 </body>
 </html>
-
