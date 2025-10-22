@@ -150,6 +150,13 @@
             <div id="vip-content" class="hidden mt-8 p-6 bg-gray-900 border border-yellow-500 rounded-lg shadow-inner">
                 <h2 class="text-3xl font-bold text-yellow-500 mb-6 border-b border-gray-700 pb-2">Contenido Exclusivo para Alumnos</h2>
                 
+                <!-- Variable para la URL base de tu GitHub Pages -->
+                <script>
+                    // Reemplaza ESTA URL con la dirección base de tu página publicada (sin index.html)
+                    // Ejemplo: https://hiddensage20.github.io/Liss
+                    const GITHUB_PAGES_BASE_URL = "https://hiddensage20.github.io/Liss";
+                </script>
+
                 <!-- MÓDULO 1: Fundamentos -->
                 <div class="mb-8">
                     <h3 class="text-2xl font-bold text-indigo-400 mb-4">Módulo 1: Fundamentos de la Comunidad</h3>
@@ -158,31 +165,45 @@
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.1: Bienvenida y Metodología</h4>
                             <p class="text-gray-400 mb-3">Introducción a la filosofía de Liss Trading y pasos iniciales.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- Ejemplo de cómo incrustar un video MP4 local de GitHub Pages -->
+                                <!-- VIDEO 1: URL GENERADA DINÁMICAMENTE -->
                                 <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
-                                    <source src="https://raw.githubusercontent.com/Hiddensage20/Liss/refs/heads/main/videos/clase_1_metodologia.mp4" type="video/mp4">
-                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (URL de ejemplo: videos/clase_1_introduccion.mp4)</p>
+                                    <source id="video-source-1" type="video/mp4">
+                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Revisa la URL en el código)</p>
                                 </video>
                             </div>
                         </div>
                         <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.2: Glosario Básico y Setup</h4>
-                            <a href="videos/clase_1_2_setup.mp4" target="_blank" class="text-yellow-500 hover:underline">Ver Video en Ventana Nueva (Ejemplo)</a>
+                            <p class="text-gray-400 mb-3">Definiciones clave y preparación de tu entorno de trabajo.</p>
+                            <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
+                                <!-- VIDEO 2: URL GENERADA DINÁMICAMENTE -->
+                                <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
+                                    <source id="video-source-2" type="video/mp4">
+                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Revisa la URL en el código)</p>
+                                </video>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- MÓDULO 2: Herramientas -->
                 <div class="mb-8">
-                    <h3 class="text-2xl font-bold text-indigo-400 mb-4">Módulo 2: Herramientas Necesarias</h3>
+                    <h3 class="text-2xl font-bold text-indigo-400 mb-4">Módulo 2: Herramientas y Riesgo</h3>
                     <div class="space-y-4">
                         <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
-                            <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.1: TradingView (Uso Básico)</h4>
-                            <p class="text-gray-400">Video pendiente de carga.</p>
+                            <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.1: Gestión de Riesgo (La Clave)</h4>
+                            <p class="text-gray-400 mb-3">Aprende a proteger tu capital antes de operar.</p>
+                            <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
+                                <!-- VIDEO 3: URL GENERADA DINÁMICAMENTE -->
+                                <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
+                                    <source id="video-source-3" type="video/mp4">
+                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Revisa la URL en el código)</p>
+                                </video>
+                            </div>
                         </div>
                         <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
-                            <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.2: Configuración de Broker</h4>
-                            <p class="text-gray-400">Video pendiente de carga.</p>
+                            <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.2: Configuración de Broker (Pronto)</h4>
+                            <p class="text-gray-400">Video de Configuración de Broker pendiente de carga.</p>
                         </div>
                     </div>
                 </div>
@@ -436,11 +457,40 @@
 
                 if (pageId === 'classes') {
                     updateClassesView();
+                    // Ejecutar la función que inyecta las URLs de video después de mostrar la página
+                    if (isLoggedIn && typeof injectVideoUrls === 'function') {
+                        injectVideoUrls();
+                    }
                 } else if (pageId === 'admin') {
                     updateAdminView();
                 }
             }
         }
+
+        // --- FUNCIÓN DINÁMICA PARA INYECTAR URLS DE VIDEO ---
+        function injectVideoUrls() {
+            // Esta URL DEBE ser la dirección de tu GitHub Pages (ej: https://hiddensage20.github.io/Liss)
+            const GITHUB_PAGES_BASE_URL = "https://hiddensage20.github.io/Liss"; 
+            
+            const videos = [
+                { id: 'video-source-1', path: 'videos/clase_1_metodologia.mp4' },
+                { id: 'video-source-2', path: 'videos/clase_2_glosario.mp4' },
+                { id: 'video-source-3', path: 'videos/clase_3_riesgo.mp4' }
+            ];
+
+            videos.forEach(video => {
+                const element = document.getElementById(video.id);
+                if (element) {
+                    element.src = `${GITHUB_PAGES_BASE_URL}/${video.path}`;
+                    // Forzar la recarga del video en el reproductor (importante para HTML5 video)
+                    const videoPlayer = element.parentElement;
+                    if (videoPlayer && videoPlayer.tagName === 'VIDEO') {
+                        videoPlayer.load();
+                    }
+                }
+            });
+        }
+
 
         // --- MANEJO DE MODAL (Reemplazo de alert/confirm) ---
 
@@ -520,6 +570,10 @@
                 if (foundUser && foundUser.password === passwordInput) {
                     isLoggedIn = true;
                     updateClassesView();
+                    // Llamar a la función de inyección de URLs aquí para cargar los videos
+                    if (typeof injectVideoUrls === 'function') {
+                        injectVideoUrls();
+                    }
                     showModal(`¡Acceso concedido a ${foundUser.name || foundUser.username}! Bienvenido al área VIP.`);
                     document.getElementById('username').value = '';
                     document.getElementById('password').value = '';
