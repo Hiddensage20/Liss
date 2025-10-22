@@ -10,17 +10,18 @@
     <!-- Scripts de Firebase Firestore y Auth -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { 
             getFirestore, collection, query, where, addDoc, 
-            getDocs, deleteDoc, doc, onSnapshot 
+            getDocs, deleteDoc, doc, onSnapshot, setLogLevel 
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         // Importante: exportamos las funciones y variables necesarias para el script global
         window.initializeApp = initializeApp;
         window.getAuth = getAuth;
         window.signInAnonymously = signInAnonymously;
-        window.signInWithCustomToken = signInWithCustomToken;
         window.onAuthStateChanged = onAuthStateChanged;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.signOut = signOut;
         window.getFirestore = getFirestore;
         window.collection = collection;
         window.query = query;
@@ -30,6 +31,7 @@
         window.deleteDoc = deleteDoc;
         window.doc = doc;
         window.onSnapshot = onSnapshot;
+        // setLogLevel('Debug'); // Descomentar para ver logs de Firebase
     </script>
 
     <!-- Configuración de la fuente Inter y colores base de Tailwind -->
@@ -42,6 +44,11 @@
         }
         .page-content {
             display: none;
+        }
+        /* Estilo para el botón de admin activo */
+        .admin-logged-in {
+            background-color: #10b981 !important; /* Esmeralda para indicar conexión real */
+            color: #1f2937 !important;
         }
     </style>
 </head>
@@ -66,10 +73,10 @@
                 <nav class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4 text-white">
                         <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('home')">Menú</a>
-                        <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('classes')">Clases Pregrabadas</a>
+                        <a href="#" class="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('classes')">Clases Pregrabadas</a>
                         <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('soon')">Pronto</a>
                         <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150" onclick="showPage('about')">Acerca de Nosotros</a>
-                        <a href="#" class="px-3 py-2 rounded-md text-sm font-medium bg-yellow-600 text-gray-900 hover:bg-yellow-500 transition duration-150" onclick="showPage('admin')">Admin Access</a>
+                        <a id="admin-nav-link" href="#" class="px-3 py-2 rounded-md text-sm font-medium bg-yellow-600 text-gray-900 hover:bg-yellow-500 transition duration-150" onclick="showPage('admin')">Admin Access</a>
                     </div>
                 </nav>
             </div>
@@ -225,31 +232,33 @@
 
             <!-- Contenedor de Login de Admin -->
             <div id="admin-login-container" class="max-w-md mx-auto p-8 bg-gray-700 rounded-lg shadow-xl border border-yellow-500">
-                <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Panel de Control</h2>
-                <p class="text-gray-300 mb-4">Introduce tus credenciales de administrador.</p>
+                <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Panel de Control (Auth Firebase)</h2>
+                <p class="text-gray-300 mb-4">Inicia sesión con la cuenta de administrador registrada en Firebase Email/Password.</p>
 
-                <div id="admin-error-message" class="text-red-400 mb-4 hidden font-medium bg-red-900/30 p-2 rounded">Credenciales de Administrador incorrectas.</div>
+                <div id="admin-error-message" class="text-red-400 mb-4 hidden font-medium bg-red-900/30 p-2 rounded">Error de credenciales o de Firebase.</div>
+                <div id="admin-loading" class="text-yellow-500 mb-4 hidden font-medium p-2 text-center">Iniciando sesión...</div>
+
 
                 <form id="admin-login-form" onsubmit="event.preventDefault(); handleAdminLogin();" class="space-y-4">
                     <div>
-                        <label for="admin-username" class="block text-sm font-medium text-gray-300">Usuario:</label>
-                        <input type="text" id="admin-username" class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 text-white" required>
+                        <label for="admin-email" class="block text-sm font-medium text-gray-300">Email de Firebase:</label>
+                        <input type="email" id="admin-email" class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 text-white" required>
                     </div>
                     <div>
                         <label for="admin-password" class="block text-sm font-medium text-gray-300">Contraseña:</label>
                         <input type="password" id="admin-password" class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 text-white" required>
                     </div>
                     <button type="submit" class="w-full bg-yellow-600 text-gray-900 py-2 px-4 border border-transparent rounded-md shadow-md text-sm font-medium hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500 transition duration-200">
-                        Acceder como Admin
+                        Acceder como Admin (Firebase)
                     </button>
-                    <p class="text-xs text-gray-400 pt-2 text-center">Usuario Admin Demo: admin_liss | Contraseña Demo: lissadmin2024</p>
+                    <p class="text-xs text-gray-400 pt-2 text-center">Usa el Email/Password que registraste en la Consola de Firebase.</p>
                 </form>
             </div>
 
             <!-- Panel de Administrador (Oculto hasta el login) -->
             <div id="admin-panel" class="hidden mt-8 p-6 bg-gray-900 border border-indigo-500 rounded-lg shadow-inner">
                 <h2 class="text-3xl font-bold text-indigo-400 mb-4">Gestión de Usuarios (Base de Datos en Tiempo Real)</h2>
-                <p class="text-lg text-gray-300 mb-6">Los usuarios registrados aquí pueden acceder a la sección VIP desde cualquier dispositivo.</p>
+                <p class="text-lg text-gray-300 mb-6">Al estar autenticada, Liss puede registrar nuevos usuarios y eliminar los inactivos.</p>
                 
                 <!-- Formulario de Registro Rápido de Admin -->
                 <div class="p-4 mb-8 bg-gray-800 rounded-lg border border-indigo-600">
@@ -310,7 +319,7 @@
         let auth = null;
         let USERS_COLLECTION_PATH = '';
 
-        // Constantes de admin
+        // Constantes de admin (Ya no se usan, solo para referencia)
         const ADMIN_USERNAME = 'admin_liss';
         const ADMIN_PASSWORD = 'lissadmin2024';
         
@@ -330,7 +339,6 @@
                     storageBucket: "paginaliss.firebasestorage.app",
                     messagingSenderId: "1044001333941",
                     appId: "1:1044001333941:web:fcc20a1f13f7b5933314fc"
-                    // measurementId: "G-274ZXX3LZE" <-- Omitido porque no se usa en este script
                 };
 
                 // Usamos el ID de proyecto para la ruta de la colección.
@@ -347,16 +355,29 @@
                 // 3. Autenticación Anónima (permite leer la lista pública de usuarios)
                 await window.signInAnonymously(auth);
 
-                // 4. Esperar que el estado de autenticación esté listo
-                await new Promise(resolve => {
-                    const unsubscribe = window.onAuthStateChanged(auth, user => {
-                        isAuthReady = true;
-                        document.getElementById('firestore-status').textContent = 'Base de Datos Conectada.';
-                        document.getElementById('firestore-status').classList.replace('bg-indigo-900/40', 'bg-green-900/40');
-                        document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-green-300');
-                        unsubscribe();
-                        resolve();
-                    });
+                // 4. Observador de estado de autenticación (Para determinar si el admin ya inició sesión)
+                window.onAuthStateChanged(auth, user => {
+                    isAuthReady = true;
+                    if (user && user.isAnonymous === false) {
+                        // El usuario no es anónimo (es decir, el administrador inició sesión)
+                        isAdminLoggedIn = true;
+                        document.getElementById('admin-nav-link').classList.add('admin-logged-in');
+                        if (document.getElementById('admin').style.display === 'block') {
+                            updateAdminView();
+                        }
+                    } else if (user && user.isAnonymous === true) {
+                        // Es un usuario anónimo
+                        isAdminLoggedIn = false;
+                        document.getElementById('admin-nav-link').classList.remove('admin-logged-in');
+                    }
+                    
+                    document.getElementById('firestore-status').textContent = 'Base de Datos Conectada.';
+                    document.getElementById('firestore-status').classList.replace('bg-indigo-900/40', 'bg-green-900/40');
+                    document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-green-300');
+                    // Mostrar la página inicial si aún no está visible
+                    if (document.querySelector('.page-content[style*="block"]') === null) {
+                         showPage('home'); 
+                    }
                 });
 
             } catch (error) {
@@ -382,8 +403,6 @@
 
         function showPage(pageId) {
             if (!isAuthReady && pageId !== 'home' && pageId !== 'about') {
-                 // Bloquear si la BD no está lista y no es la página de inicio o acerca de
-                // showModal('Conectando a la base de datos. Por favor, espera un momento...');
                 return;
             }
 
@@ -510,6 +529,7 @@
             const loginContainer = document.getElementById('admin-login-container');
             const adminPanel = document.getElementById('admin-panel');
 
+            // Si el Admin está realmente logueado en Firebase (no es anónimo)
             if (isAdminLoggedIn) {
                 loginContainer.classList.add('hidden');
                 adminPanel.classList.remove('hidden');
@@ -520,29 +540,50 @@
             }
         }
 
-        function handleAdminLogin() {
-            const usernameInput = document.getElementById('admin-username').value;
+        async function handleAdminLogin() {
+            if (!auth) return showModal('Error de conexión. Autenticación no inicializada.');
+
+            const emailInput = document.getElementById('admin-email').value.trim();
             const passwordInput = document.getElementById('admin-password').value;
             const errorMessage = document.getElementById('admin-error-message');
+            const loadingIndicator = document.getElementById('admin-loading');
+            
+            errorMessage.classList.add('hidden');
+            loadingIndicator.classList.remove('hidden');
 
-            if (usernameInput === ADMIN_USERNAME && passwordInput === ADMIN_PASSWORD) {
-                isAdminLoggedIn = true;
-                errorMessage.classList.add('hidden');
-                updateAdminView();
-                showModal('¡Bienvenido, Administrador! Acceso al panel de gestión.');
-                document.getElementById('admin-username').value = '';
-                document.getElementById('admin-password').value = '';
-            } else {
-                isAdminLoggedIn = false;
+            try {
+                // Autenticar al administrador con Email/Password de Firebase
+                await window.signInWithEmailAndPassword(auth, emailInput, passwordInput);
+                
+                // Si el login es exitoso, el onAuthStateChanged se dispara y actualiza isAdminLoggedIn
+                // y llama a updateAdminView, pero llamamos de forma manual para una respuesta inmediata
+                showModal('¡Inicio de sesión de administrador exitoso! Ahora puedes gestionar usuarios.');
+                updateAdminView(); 
+            } catch (e) {
+                console.error("Error al iniciar sesión de Admin:", e);
                 errorMessage.classList.remove('hidden');
-                showModal('Error de credenciales de Administrador.');
+                showModal('Error de credenciales: Verifica el email y la contraseña de Firebase.');
+            } finally {
+                loadingIndicator.classList.add('hidden');
             }
         }
 
         function adminLogout() {
-            isAdminLoggedIn = false;
-            updateAdminView();
-            showModal('Sesión de Administrador cerrada.');
+            if (!auth) return showModal('Error de conexión. Autenticación no inicializada.');
+            
+            // Cerrar la sesión del administrador
+            window.signOut(auth).then(() => {
+                // Después de cerrar sesión, volvemos a iniciar la sesión anónima
+                window.signInAnonymously(auth);
+                
+                isAdminLoggedIn = false;
+                document.getElementById('admin-nav-link').classList.remove('admin-logged-in');
+                updateAdminView();
+                showModal('Sesión de Administrador cerrada. Volviendo a modo anónimo.');
+            }).catch(e => {
+                console.error("Error al cerrar sesión de Admin:", e);
+                showModal('Error al cerrar sesión.');
+            });
         }
 
 
@@ -550,7 +591,7 @@
 
         // CREATE (Admin Registration)
         async function handleAdminRegistration() {
-            if (!db) return showModal('Base de datos no disponible.');
+            if (!isAdminLoggedIn) return showModal('Error de acceso. Debes iniciar sesión como administrador de Firebase primero.');
             
             const name = document.getElementById('admin-reg-name').value.trim();
             const username = document.getElementById('admin-reg-username').value.trim();
@@ -574,7 +615,7 @@
                 await window.addDoc(usersRef, {
                     name: name,
                     username: username,
-                    password: password, // NOTA: En una app real, la contraseña debe ser HASHED.
+                    password: password, 
                     timestamp: new Date().toISOString()
                 });
 
@@ -597,7 +638,7 @@
         let unsubscribeAdminListener = null;
 
         function loadAdminRegistrations() {
-            if (!db) return;
+            if (!db || !isAdminLoggedIn) return; // Solo cargar si estamos en Admin View y logueados
             
             // Si ya hay un listener activo, lo desuscribimos
             if (unsubscribeAdminListener) {
