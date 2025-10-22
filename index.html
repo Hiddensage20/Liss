@@ -321,63 +321,52 @@
         // --- INICIALIZACIÓN DE FIREBASE ---
         async function initFirebase() {
             try {
-                // --- CONFIGURACIÓN DE FIREBASE (PASO OBLIGATORIO) ---
-                // PASO 1: Crea un proyecto en la consola de Firebase.
-                // PASO 2: Habilita Firestore y Auth (solo Anónimo es necesario).
-                // PASO 3: Copia y pega AQUÍ el objeto de configuración que te da Firebase (por ejemplo, al crear una aplicación web).
+                // --- CONFIGURACIÓN DE FIREBASE (CORREGIDA) ---
+                // Datos proporcionados por el usuario:
+                const FIREBASE_CONFIG = {
+                    apiKey: "AIzaSyDTDA036KgUdNwCXJshztaB6JCdsmyxUZA",
+                    authDomain: "paginaliss.firebaseapp.com",
+                    projectId: "paginaliss",
+                    storageBucket: "paginaliss.firebasestorage.app",
+                    messagingSenderId: "1044001333941",
+                    appId: "1:1044001333941:web:fcc20a1f13f7b5933314fc"
+                    // measurementId: "G-274ZXX3LZE" <-- Omitido porque no se usa en este script
+                };
 
-                    // CÓDIGO REEMPLAZADO CON TUS CLAVES REALES
-async function initFirebase() {
-    try {
-        // --- CONFIGURACIÓN DE FIREBASE (CORREGIDA) ---
-        // Se usa el nombre de variable FIREBASE_CONFIG para que el resto del script lo reconozca
-        const FIREBASE_CONFIG = {
-            apiKey: "AIzaSyDTDA036KgUdNWcXJshztaB6jCdsmyxUZA",
-            authDomain: "paginaliss.firebaseapp.com",
-            projectId: "paginaliss",
-            storageBucket: "paginaliss.firebasestorage.app",
-            messagingSenderId: "1044001333941",
-            appId: "1:1044001333941:web:fce20a1f13f7b5933314fc"
-            // measurementId no es necesario y se omite
-        };
+                // Usamos el ID de proyecto para la ruta de la colección.
+                const PROJECT_ID = FIREBASE_CONFIG.projectId;
+                
+                // 1. Inicializar App y Servicios
+                const app = window.initializeApp(FIREBASE_CONFIG); 
+                db = window.getFirestore(app);
+                auth = window.getAuth(app);
+                
+                // 2. Definir el path de la colección.
+                USERS_COLLECTION_PATH = `/artifacts/${PROJECT_ID}/public/data/liss_users`;
 
-        // Usamos el ID de proyecto para la ruta de la colección.
-        const PROJECT_ID = FIREBASE_CONFIG.projectId;
-        
-        // 1. Inicializar App y Servicios
-        // Se usa la función exportada: window.initializeApp
-        const app = window.initializeApp(FIREBASE_CONFIG); 
-        db = window.getFirestore(app);
-        auth = window.getAuth(app);
-        
-        // 2. Definir el path de la colección.
-        // **OPCIÓN A: (Si estás usando GitHub Pages y la ruta compleja falla, cambia a la OP. B)**
-        USERS_COLLECTION_PATH = `/artifacts/${PROJECT_ID}/public/data/liss_users`;
+                // 3. Autenticación Anónima (permite leer la lista pública de usuarios)
+                await window.signInAnonymously(auth);
 
-        // 3. Autenticación Anónima (permite leer la lista pública de usuarios)
-        await window.signInAnonymously(auth);
+                // 4. Esperar que el estado de autenticación esté listo
+                await new Promise(resolve => {
+                    const unsubscribe = window.onAuthStateChanged(auth, user => {
+                        isAuthReady = true;
+                        document.getElementById('firestore-status').textContent = 'Base de Datos Conectada.';
+                        document.getElementById('firestore-status').classList.replace('bg-indigo-900/40', 'bg-green-900/40');
+                        document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-green-300');
+                        unsubscribe();
+                        resolve();
+                    });
+                });
 
-        // 4. Esperar que el estado de autenticación esté listo
-        await new Promise(resolve => {
-            const unsubscribe = window.onAuthStateChanged(auth, user => {
-                isAuthReady = true;
-                document.getElementById('firestore-status').textContent = 'Base de Datos Conectada.';
-                document.getElementById('firestore-status').classList.replace('bg-indigo-900/40', 'bg-green-900/40');
-                document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-green-300');
-                unsubscribe();
-                resolve();
-            });
-        });
-
-    } catch (error) {
-        console.error("Error al inicializar Firebase:", error);
-        document.getElementById('firestore-status').textContent = 'ERROR: No se pudo conectar a la base de datos (Verifica la CONFIGURACIÓN).';
-        document.getElementById('firestore-status').classList.replace('bg-indigo-900/40', 'bg-red-900/40');
-        document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-red-300');
-        showModal('Error crítico al conectar con la base de datos. ¡Revisa la CONFIGURACIÓN y las REGLAS de Firestore!');
-    }
-}
-        // ... (resto de funciones sin cambios)
+            } catch (error) {
+                console.error("Error al inicializar Firebase:", error);
+                document.getElementById('firestore-status').textContent = 'ERROR: No se pudo conectar a la base de datos (Verifica la CONFIGURACIÓN).';
+                document.getElementById('firestore-status').classList.replace('bg-indigo-900/40', 'bg-red-900/40');
+                document.getElementById('firestore-status').classList.replace('text-indigo-300', 'text-red-300');
+                showModal('Error crítico al conectar con la base de datos. ¡Revisa la CONFIGURACIÓN y las REGLAS de Firestore!');
+            }
+        }
 
         // --- MANEJO DE VISTAS Y NAVEGACIÓN ---
 
