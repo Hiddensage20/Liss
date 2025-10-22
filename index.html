@@ -63,12 +63,14 @@
                         Liss Trading
                     </a>
                 </div>
-                <div class="flex md:hidden">
+                <div class="flex md:flex-row-reverse md:hidden">
                     <button id="menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-yellow-500" aria-expanded="false">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
+                    <!-- Icono de Estado de Admin para Móvil (pequeño indicador) -->
+                    <span id="admin-status-mobile" class="mr-2 self-center block md:hidden w-3 h-3 rounded-full bg-yellow-600"></span>
                 </div>
                 <nav class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4 text-white">
@@ -156,12 +158,12 @@
                     <div class="space-y-4">
                         <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 shadow-md">
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.1: Bienvenida y Metodología</h4>
-                            <p class="text-gray-400 mb-3">pasos iniciales.</p>
+                            <p class="text-gray-400 mb-3">Introducción a la filosofía de Liss Trading y pasos iniciales.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 1: IFRAME DE VIMEO -->
+                                <!-- VIDEO 1: IFRAME DE GOOGLE DRIVE (Clase 1.1) - ID INSERTADO -->
                                 <iframe 
                                     class="absolute top-0 left-0 w-full h-full rounded-lg"
-                                    src="https://player.vimeo.com/video/1129599515?h=abcdef1234&title=0&byline=0&portrait=0" 
+                                    src="https://drive.google.com/file/d/1XBkoc55Y7ucOE-ZZOzz1j5BVVHUtzhLi/preview" 
                                     frameborder="0" 
                                     allow="autoplay; fullscreen; picture-in-picture" 
                                     allowfullscreen
@@ -172,10 +174,10 @@
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 1.2: Glosario Básico y Setup</h4>
                             <p class="text-gray-400 mb-3">Definiciones clave y preparación de tu entorno de trabajo.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 2: IFRAME DE VIMEO -->
+                                <!-- VIDEO 2: IFRAME DE GOOGLE DRIVE (Clase 1.2) -->
                                 <iframe 
                                     class="absolute top-0 left-0 w-full h-full rounded-lg"
-                                    src="https://player.vimeo.com/video/[ID_DEL_VIDEO_2]?h=abcdef1234&title=0&byline=0&portrait=0" 
+                                    src="https://drive.google.com/file/d/[DRIVE_FILE_ID_2_PLACEHOLDER]/preview" 
                                     frameborder="0" 
                                     allow="autoplay; fullscreen; picture-in-picture" 
                                     allowfullscreen
@@ -193,10 +195,10 @@
                             <h4 class="text-xl font-semibold text-gray-200 mb-2">Clase 2.1: Gestión de Riesgo (La Clave)</h4>
                             <p class="text-gray-400 mb-3">Aprende a proteger tu capital antes de operar.</p>
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
-                                <!-- VIDEO 3: IFRAME DE VIMEO -->
+                                <!-- VIDEO 3: IFRAME DE GOOGLE DRIVE (Clase 2.1) -->
                                 <iframe 
                                     class="absolute top-0 left-0 w-full h-full rounded-lg"
-                                    src="https://player.vimeo.com/video/[ID_DEL_VIDEO_3]?h=abcdef1234&title=0&byline=0&portrait=0" 
+                                    src="https://drive.google.com/file/d/[DRIVE_FILE_ID_3_PLACEHOLDER]/preview" 
                                     frameborder="0" 
                                     allow="autoplay; fullscreen; picture-in-picture" 
                                     allowfullscreen
@@ -405,6 +407,8 @@
                         // El usuario no es anónimo (es decir, el administrador inició sesión)
                         isAdminLoggedIn = true;
                         document.getElementById('admin-nav-link').classList.add('admin-logged-in');
+                        // Actualizar el estado móvil
+                        document.getElementById('admin-status-mobile').classList.replace('bg-yellow-600', 'bg-emerald-500'); 
                         if (document.getElementById('admin').style.display === 'block') {
                             updateAdminView();
                         }
@@ -412,6 +416,7 @@
                         // Es un usuario anónimo
                         isAdminLoggedIn = false;
                         document.getElementById('admin-nav-link').classList.remove('admin-logged-in');
+                         document.getElementById('admin-status-mobile').classList.replace('bg-emerald-500', 'bg-yellow-600');
                     }
                     
                     document.getElementById('firestore-status').textContent = 'Base de Datos Conectada.';
@@ -459,50 +464,11 @@
 
                 if (pageId === 'classes') {
                     updateClassesView();
-                    // Ejecutar la función que inyecta las URLs de video después de mostrar la página
-                    if (isLoggedIn && typeof injectVimeoUrls === 'function') {
-                        injectVimeoUrls();
-                    }
                 } else if (pageId === 'admin') {
                     updateAdminView();
                 }
             }
         }
-
-        // --- FUNCIÓN DINÁMICA PARA INYECTAR URLS DE VIMEO ---
-        function injectVimeoUrls() {
-            // IDs de los videos de Vimeo. DEBES REEMPLAZAR ESTOS IDs CON LOS REALES.
-            const VIMEO_IDS = {
-                // El ID de Vimeo es la secuencia de números al final de la URL del video.
-                'ID_DEL_VIDEO_1': '1129599515', // CLASE 1.1: EL ID REAL DEL USUARIO
-                'ID_DEL_VIDEO_2': '76979872', // Placeholder
-                'ID_DEL_VIDEO_3': '76979873' // Placeholder
-            }; 
-            
-            // Recorrer todos los iframes en la sección VIP
-            const iframes = document.querySelectorAll('#vip-content iframe');
-            
-            iframes.forEach(iframe => {
-                const src = iframe.src;
-                
-                // 1. Encontrar el placeholder dentro de la URL (ej: [ID_DEL_VIDEO_1])
-                const placeholderMatch = src.match(/\[ID_DEL_VIDEO_\d+\]/);
-
-                if (placeholderMatch) {
-                    const placeholder = placeholderMatch[0]; // Ej: [ID_DEL_VIDEO_1]
-                    // Quitamos los corchetes
-                    const idKey = placeholder.replace(/\[|\]/g, ''); // Ej: ID_DEL_VIDEO_1
-
-                    const vimeoId = VIMEO_IDS[idKey];
-
-                    if (vimeoId && vimeoId !== idKey) {
-                        // 2. Reemplazar el placeholder con el ID real de Vimeo
-                        iframe.src = src.replace(placeholder, vimeoId);
-                    }
-                }
-            });
-        }
-
 
         // --- MANEJO DE MODAL (Reemplazo de alert/confirm) ---
 
@@ -582,10 +548,6 @@
                 if (foundUser && foundUser.password === passwordInput) {
                     isLoggedIn = true;
                     updateClassesView();
-                    // Llamar a la función de inyección de URLs aquí para cargar los videos
-                    if (typeof injectVimeoUrls === 'function') {
-                        injectVimeoUrls();
-                    }
                     showModal(`¡Acceso concedido a ${foundUser.name || foundUser.username}! Bienvenido al área VIP.`);
                     document.getElementById('username').value = '';
                     document.getElementById('password').value = '';
@@ -811,3 +773,4 @@
     </script>
 </body>
 </html>
+
