@@ -167,8 +167,8 @@
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
                                 <!-- VIDEO 1: URL GENERADA DINÁMICAMENTE -->
                                 <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
-                                    <source id="video-source-1" type="video/mp4">
-                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Revisa la URL en el código)</p>
+                                    <source id="video-source-1" type="video/mp4" data-filename="clase_1_metodologia.mp4">
+                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Archivo esperado: clase_1_metodologia.mp4)</p>
                                 </video>
                             </div>
                         </div>
@@ -178,8 +178,8 @@
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
                                 <!-- VIDEO 2: URL GENERADA DINÁMICAMENTE -->
                                 <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
-                                    <source id="video-source-2" type="video/mp4">
-                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Revisa la URL en el código)</p>
+                                    <source id="video-source-2" type="video/mp4" data-filename="clase_2_glosario.mp4">
+                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Archivo esperado: clase_2_glosario.mp4)</p>
                                 </video>
                             </div>
                         </div>
@@ -196,8 +196,8 @@
                             <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%;">
                                 <!-- VIDEO 3: URL GENERADA DINÁMICAMENTE -->
                                 <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-lg bg-black">
-                                    <source id="video-source-3" type="video/mp4">
-                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Revisa la URL en el código)</p>
+                                    <source id="video-source-3" type="video/mp4" data-filename="clase_3_riesgo.mp4">
+                                    <p class="p-4 text-red-400">Tu navegador no soporta videos MP4. (Error: Archivo esperado: clase_3_riesgo.mp4)</p>
                                 </video>
                             </div>
                         </div>
@@ -473,15 +473,17 @@
             const GITHUB_PAGES_BASE_URL = "https://hiddensage20.github.io/Liss"; 
             
             const videos = [
-                { id: 'video-source-1', path: 'videos/clase_1_metodologia.mp4' },
-                { id: 'video-source-2', path: 'videos/clase_2_glosario.mp4' },
-                { id: 'video-source-3', path: 'videos/clase_3_riesgo.mp4' }
+                // Usamos data-filename para obtener los nombres de archivo directamente de los elementos.
+                { id: 'video-source-1', filename: document.getElementById('video-source-1').getAttribute('data-filename') },
+                { id: 'video-source-2', filename: document.getElementById('video-source-2').getAttribute('data-filename') },
+                { id: 'video-source-3', filename: document.getElementById('video-source-3').getAttribute('data-filename') }
             ];
 
             videos.forEach(video => {
                 const element = document.getElementById(video.id);
-                if (element) {
-                    element.src = `${GITHUB_PAGES_BASE_URL}/${video.path}`;
+                if (element && video.filename) {
+                    // Crea la URL completa usando la base de GitHub Pages
+                    element.src = `${GITHUB_PAGES_BASE_URL}/videos/${video.filename}`;
                     // Forzar la recarga del video en el reproductor (importante para HTML5 video)
                     const videoPlayer = element.parentElement;
                     if (videoPlayer && videoPlayer.tagName === 'VIDEO') {
