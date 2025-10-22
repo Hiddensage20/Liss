@@ -118,7 +118,8 @@
                     <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 border border-transparent rounded-md shadow-md text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-yellow-500 transition duration-200">
                         Acceder
                     </button>
-                    <p class="text-xs text-gray-400 pt-2 text-center">Usuario Demo: liss_user | Contraseña Demo: trading2024</p>
+                    <!-- Eliminamos el demo aquí ya que ahora usa los registros de admin -->
+                    <p class="text-xs text-gray-400 pt-2 text-center">Usa las credenciales que te proporcionó el administrador.</p>
                 </form>
             </div>
 
@@ -167,7 +168,7 @@
                     <h2 class="text-2xl font-bold text-indigo-400 mb-3 mt-6">Gestión Interna</h2>
                     <p class="text-gray-400 mb-4">Si eres administrador, puedes acceder al panel de control de registros de usuarios.</p>
                     <button onclick="showPage('admin')" class="bg-yellow-600 hover:bg-yellow-700 text-gray-900 font-bold py-2 px-6 rounded-md transition duration-300 transform hover:scale-105 shadow-md">
-                        <svg class="w-5 h-5 inline mr-2 -mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4h5a2 2 0 002-2v-2a2 2 2 00-2-2h-5" /></svg>
+                        <svg class="w-5 h-5 inline mr-2 -mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4h5a2 2 0 002-2v-2a2 2 0 00-2-2h-5" /></svg>
                         Ir al Acceso de Administrador
                     </button>
                 </div>
@@ -279,9 +280,9 @@
 
     <script>
         // --- CONSTANTES DE AUTENTICACIÓN ---
-        const VALID_USERNAME = 'liss_user';
-        const VALID_PASSWORD = 'trading2024';
-        
+        // NOTA: Estas credenciales se mantienen solo para el LOGIN DEMO que tenías inicialmente,
+        // pero la función handleLogin ha sido modificada para usar la lista de registros.
+        // Las constantes de admin SÍ son necesarias.
         const ADMIN_USERNAME = 'admin_liss';
         const ADMIN_PASSWORD = 'lissadmin2024';
         
@@ -376,12 +377,26 @@
             const usernameInput = document.getElementById('username').value;
             const passwordInput = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
+            
+            // 1. Obtener la lista de usuarios registrados por el Admin
+            const registrations = getRegistrations();
+            
+            // 2. Buscar si existe un usuario con esas credenciales
+            // La validación de la contraseña debe coincidir con cómo la guardamos en handleAdminRegistration
+            // Guardamos: *** + últimos 4 caracteres de la contraseña
+            const passwordHashToCheck = `***${passwordInput.substring(passwordInput.length - 4)}`;
 
-            if (usernameInput === VALID_USERNAME && passwordInput === VALID_PASSWORD) {
+            const foundUser = registrations.find(reg => 
+                reg.username === usernameInput && 
+                reg.passwordHash === passwordHashToCheck
+            );
+
+
+            if (foundUser) {
                 isLoggedIn = true;
                 errorMessage.classList.add('hidden');
                 updateClassesView();
-                showModal('¡Acceso concedido! Bienvenido al área VIP.');
+                showModal(`¡Acceso concedido a ${foundUser.name}! Bienvenido al área VIP.`);
                 document.getElementById('username').value = '';
                 document.getElementById('password').value = '';
             } else {
@@ -470,13 +485,13 @@
                 return;
             }
 
-            // Simulación de "hash" o cifrado
+            // Simulación de "hash": Almacenamos *** + últimos 4 caracteres.
             const passwordHash = `***${password.substring(password.length - 4)}`; 
 
             const newRegistration = {
                 name: name,
                 username: username,
-                passwordHash: passwordHash,
+                passwordHash: passwordHash, // Guardamos la versión "hashed"
                 timestamp: new Date().toLocaleString()
             };
 
